@@ -1,0 +1,299 @@
+\documentclass[
+	paper=a4, % Papierformat: DIN A4
+	fontsize=11pt, % Schriftgröße: 11 pt
+	parskip=half, % Absatzabstand: halbe Zeile
+	DIV=15, % Raster: 15x15 (Berechnung siehe Satzspiegelkonstruktion.md)
+	BCOR=22.5mm, % Bindekorrektur: 22,5 mm
+	headsepline, % Linie unter Kopfzeile
+	%oneside, % einseitiges Layout
+	numbers=noenddot, % Gliederungsnummern ohne abschließenden Punkt erzwingen
+	toc=bibliography % Literaturverzeichnis ins Inhaltsverzeichnis aufnehmen
+]{scrbook} % KOMA-Script-Klasse: scrbook
+
+\usepackage[onehalfspacing]{setspace} % Zeilenabstand auf 1,5 setzen
+
+\usepackage[english,ngerman]{babel} % Deutsch als Sprache verwenden; Englisch als weitere Sprache verwenden
+\usepackage[utf8]{inputenc} % UTF-8 als Encoding verwenden
+
+\usepackage{cmbright} % Computer Modern Bright verwenden
+\renewcommand{\familydefault}{\rmdefault} % Serifenschrift als Standard verwenden (Computer Modern Bright nur für Überschriften)
+\usepackage[T1]{fontenc} % T1 als Font-Encoding verwenden
+
+\usepackage{textcomp} % Symbole (für Listings) einbinden
+\usepackage{courier} % Monospace-Font Courier einbinden
+
+\widowpenalty=1000 % Hurenkinder (letzte Zeile eines Absatzes erscheint als erste auf einer Seite) reduzieren
+\clubpenalty=1000 % Schusterjungen (erste Zeile eines Absatzes erscheint als letzte auf einer Seite) reduzieren
+
+\raggedbottom % Satzspiegel nicht unten ausrichten
+
+
+% Bildunterschriften
+\setcapindent{0pt} % Einrückung der zweiten Zeile
+\setkomafont{caption}{\small} % Schriftgröße
+\setkomafont{captionlabel}{\bfseries} % Kennzeichnung (z. B. ›Abbildung 1.2:‹)
+\setcapwidth[c]{0.9\textwidth} % Ausrichtung und Breite
+
+
+% Literaturverzeichnis
+\usepackage[style=authoryear,sorting=nyt,isbn=false]{biblatex} % Paket biblatex für Literaturverzeichnis verwenden
+\addbibresource{literature.bib} % BibTeX-Datei für Biblatex festlegen
+
+
+% Quellenverweise
+\newrobustcmd*{\parentexttrack}[1]{
+	\begingroup
+	\blx@blxinit
+	\blx@setsfcodes
+	\blx@bibopenparen#1\blx@bibcloseparen
+	\endgroup
+}
+
+
+% Tabellen
+\usepackage{tabularx} % Paket tabularx einbinden
+\usepackage[table]{xcolor} % Paket xcolor einbinden und farbige Tabellen ermöglichen
+\usepackage{multirow} % Paket multirow einbinden
+
+% Farben
+\xdefinecolor{uzlColor}{cmyk}{1,0,.20,.78} % Hausfarbe der Universität zu Lübeck ist Ozeangrün (CMYK 100 0 20 78)
+\colorlet{uzlLightColor}{uzlColor!50} % Hausfarbe der Universität zu Lübeck mit 50% Deckung (z. B. für Slogan und Einrichtungen)
+
+\colorlet{majorColor}{uzlColor} % Hauptfarbe
+\colorlet{minorColor}{uzlLightColor} % Nebenfarbe
+
+
+% Inhaltsverzeichnis
+\addtokomafont{chapterentry}{\rmfamily} % Serifenschrift bei Kapiteleinträgen verwenden
+
+
+% Überschriften
+\addtokomafont{chapter}{\color{majorColor}}
+\addtokomafont{section}{\color{majorColor}}
+\addtokomafont{subsection}{\color{majorColor}}
+\addtokomafont{subsubsection}{\color{majorColor}}
+\addtokomafont{paragraph}{\color{majorColor}}
+
+
+% Kopf- und Fußzeile
+\usepackage{scrpage2} % Paket scrpage2 einbinden
+\automark[section]{chapter} % Kopfzeile rechts: section; Kopfzeile links: chapter
+\setheadsepline{1pt}[\color{majorColor}] % Linie unter Kopfzeile formatieren
+\setkomafont{pageheadfoot}{\normalfont\sffamily\color{majorColor}} % Kopf- und Fußzeile formatieren
+\setkomafont{pagenumber}{\normalfont\sffamily\color{majorColor}} % Seitenzahl formatieren
+
+
+% PDF-Funktionen und -Eigenschaften
+\usepackage[pdfborder={0 0 0}]{hyperref} % Paket hyperref zur Einbindung von Verweisen
+
+
+% Bilder
+\usepackage{graphicx} % Paket graphicx zum Einbinden von Bildern
+\usepackage{float} % Paket float zur Positionierung
+\setlength{\fboxsep}{0pt} % Abstand zum Inhalt entfernen
+
+
+% Listen
+\newcommand{\bulletitem}{{\color{majorColor}\raisebox{.25em}{\rule{.25em}{.25em}}}}
+\renewcommand{\labelitemi}{\bulletitem} % Listeneinträge mit Quadrat als Aufzählungszeichen
+
+
+% Sonstiges
+\usepackage{scrhack} % Paket scrhack um eventuelle Probleme mit hyperref, float und listings zu beheben
+
+
+% Werkzeuge für Pedantinnen und Pedanten
+\newcommand{\zb}{z.\,B.} % schmales Leerzeichen zwischen ›z.‹ und ›B.‹
+
+
+
+
+\begin{document}
+
+\frontmatter
+
+\begin{titlepage}
+	\sffamily
+	\begin{center}
+		\includegraphics[width=80mm]{img/Logo_Uni_IMIS_CMYK_100-0-20-78_50-0-10-39.pdf} % 80 mm ist Vorgabe
+
+		\LARGE
+
+		\vskip4em
+
+		\textbf{\color{majorColor}Titel des Projekts}
+
+
+		\vskip4em
+
+		\normalsize
+
+		\textbf{Projektbericht}
+
+		im Rahmen des Master-Projekts\\
+		\textbf{Arbeitsplatzsysteme}\\
+		am Institut für Multimediale und Interaktive Systeme der Universität zu Lübeck
+
+		\vskip2em
+
+		vorgelegt von\\
+		Vorname Nachname
+
+		\vskip2em
+
+		ausgegeben und geprüft von\\
+		Titel Vorname Nachname
+
+		\vskip2em
+
+		mit Unterstützung von\\
+		Titel Vorname Nachname
+
+		\vfill
+
+		Lübeck, den 18. Dezember 2015
+	\end{center}
+\end{titlepage}
+
+
+\cleardoublepage
+\thispagestyle{plain}
+\chapter*{Kurzfassung}
+
+% eine kurze Beschreibung des Projekts
+
+
+\cleardoublepage
+\thispagestyle{plain}
+\chapter*{Abstract}
+
+% a short description of the project
+
+
+\cleardoublepage
+\tableofcontents
+
+
+\mainmatter
+
+
+\chapter{Beispielkapitel}
+\label{chap:beispielkapitel}
+
+Beispieleinführung ins Beispielkapitel
+
+\section{Beispielabschnitt}
+\label{sec:beispielabschnitt}
+
+Beispielinhalt (siehe Kapitel~\ref{chap:beispielkapitel})
+
+\subsection{Beispielunterabschnitt}
+\label{subsec:beispielunterabschnitt}
+
+Beispielinhalt (siehe Abschnitt~\ref{sec:beispielabschnitt})
+
+\begin{figure}[H] % H aus float-Paket
+\centering\fbox{\includegraphics[width=0.5\linewidth]{img/Logo_Uni_IMIS_CMYK_100-0-20-78_50-0-10-39.pdf}}
+\caption{Beispielbild}
+\label{fig:beispielbild}
+\end{figure}
+
+Am Ende eines Beispielabsatzes, wie dieser einer ist, kann \zb{} eine Referenz zu einem zitierten Buch gegeben werden. \parencite[][]{beispiel:2015}
+
+Auch auf Online-Quellen kann verwiesen werden. \parencite[][]{obeispiel}
+
+Um weitere Eigenschaften dieser Vorlage zu verdeutlichen, ist es nötig, einen etwas umfangreicheren Text einzubinden. Dazu werden hier in diesem Teil zahlreiche unterschiedliche Wörter aneinandergereiht und durch die Verwendung von Satzzeichen in einzelne Sätze unterteilt. Mehrere dieser Sätze können zusammen einen Absatz bilden. Unerwarteterweise folgt nun eine beispielhafte unsortierte Liste.
+
+\begin{itemize} \itemsep0pt \parskip0pt
+\item Beispielpunkt
+\item ein weiterer Beispielpunkt
+\item noch ein Beispielpunkt
+\end{itemize}
+
+Ein weiterer Absatz kann nach exakt diesem zuvor genannten Schema erstellt werden. Um die Bestandteile des Vorgangs noch einmal herauszustellen: Meist mehrere Buchstaben bilden ein Wort, meist mehrere Wörter bilden einen Satz und meist mehrere Sätze bilden einen Absatz.
+
+Beispielinhalt (siehe Abbildung~\ref{fig:beispielbild})
+
+
+\chapter{Ein weiteres Beispielkapitel}
+\label{chap:einweiteresbeispielkapitel}
+
+Beispieleinführung ins Beispielkapitel
+
+
+\backmatter
+
+
+\cleardoublepage
+\listoffigures
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+
+
+\cleardoublepage
+\listoftables
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+
+
+\cleardoublepage
+\chapter{Abkürzungsverzeichnis}
+
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{URI} & \emph{U}niform \emph{R}esource \emph{I}dentifier\\
+\textbf{URL} & \emph{U}niform \emph{R}esource \emph{L}ocator\\
+\end{tabularx}
+
+
+\cleardoublepage
+\chapter{Glossar}
+
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{Framework} & Programmiergerüst, das Struktur, Funktionalität oder weitere Abstraktionsebenen bietet.\\
+\end{tabularx}
+
+
+\cleardoublepage
+\printbibliography
+
+
+% Abbildungen und Tabellen aus Anhang nicht in Verzeichnisse aufnehmen
+\let\svaddcontentsline\addcontentsline
+\renewcommand\addcontentsline[3]{%
+	\ifthenelse{\equal{#1}{lof}}{}%
+	{\ifthenelse{\equal{#1}{lot}}{}{\svaddcontentsline{#1}{#2}{#3}}}}
+
+\appendix
+
+
+\chapter{Anhang}
+\renewcommand{\thesection}{A.\arabic{section}}
+\renewcommand{\thefigure}{A.\arabic{section}.\arabic{figure}}
+
+Beispieleinführung ins Kapitel
+
+\newpage
+
+\section{Beispielabschnitt aus dem Anhang}
+
+Beispielinhalt
+
+
+\cleardoublepage
+\thispagestyle{plain} % Kopfzeile nicht setzen
+\pagenumbering{gobble} % Seitenzahlen verschlucken
+\chapter*{Erklärung}
+
+Wir versichern, die vorliegende Arbeit selbstständig verfasst und nur die angegebenen Quellen benutzt zu haben.
+
+\vskip2em
+
+Lübeck, den 18. Dezember 2015 \hfill \rule{75mm}{1pt}
+
+\cleardoublepage
+\thispagestyle{plain} % Kopfzeile nicht setzen
+\pagenumbering{gobble} % Seitenzahlen verschlucken
+~
+\newpage
+\thispagestyle{plain} % Kopfzeile nicht setzen
+\pagenumbering{gobble} % Seitenzahlen verschlucken
+~
+\end{document}
